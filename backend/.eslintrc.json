@@ -28,8 +28,9 @@
         "newlinesBetween": "always",
         "groups": [
           "module",
-          "/^@shared/",
-          ["parent", "sibling", "index"]
+          "/^@/",
+          ["parent", "sibling"],
+          "index"
         ],
         "alphabetize": { "order": "asc", "ignoreCase": true }
       }
