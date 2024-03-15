@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: devlinks_backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+
+  mysql:
+    container_name: devlinks_database
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: devlinks
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: devlinks_phpmyadmin
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: mysql
+
+volumes:
+  mysql_data:
