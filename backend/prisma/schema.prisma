@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  casing   = "camel-case"
 }
 
 datasource db {
