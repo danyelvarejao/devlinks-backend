@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+  casing   = "camel-case"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  links Link[]
+
+  @@map("accounts")
+}
+
+model Profile {
+  id        String  @id @default(uuid())
+  firstName String? @map("firt_name")
+  lastName  String? @map("last_name")
+  image     String?
+
+  @@map("profiles")
+}
+
+model Link {
+  id       String   @id @default(uuid())
+  platform Platform
+  link     String
+
+  accountId String  @map("account_id")
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@map("links")
+}
+
+enum Platform {
+  GITHUB
+  FRONTENDMENTOR
+  TWITTER
+  LINKEDIN
+  YOUTUBE
+  FACEBOOK
+  TWITCH
+  DEVTO
+  CODEWARS
+  CODEPEN
+  FREECODECAMP
+  GITLAB
+  HASHNODE
+  STACKOVERFLOW
+}
