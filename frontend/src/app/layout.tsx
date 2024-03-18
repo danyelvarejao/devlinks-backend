@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Devlinks',
   description:
-    'Devlinks é uma aplicação desenvolvida com o auxílio do create next app. Explore um mundo de conexões e recursos para desenvolvedores, onde você pode descobrir ferramentas, tutoriais e comunidades relevantes para aprimorar suas habilidades e projetos de desenvolvimento.',
+    'A website where developers can quickly and easily share their profiles from GitHub, LinkedIn, and other platforms to facilitate professional networking.',
 };
 
 export default function RootLayout({
