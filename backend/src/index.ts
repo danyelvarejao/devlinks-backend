@@ -1,13 +1,15 @@
-import express from 'express'
+import fastify from 'fastify'
 
-const app = express()
+const app = fastify({ logger: true })
+const port = 3000
 
-app.get('/', (request, response) => {
-  const message = 'Hello World'
-
-  return response.json({ message })
+app.get('/', () => {
+  return { message: 'Hello World' }
 })
 
-app.listen(3333, () => {
-  console.log(`Server running 💚`)
+app.listen({ port }, function (err) {
+  if (err) {
+    app.log.error(err)
+    process.exit(1)
+  }
 })

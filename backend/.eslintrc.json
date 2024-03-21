@@ -22,6 +22,7 @@
 
   "rules": {
     "prettier/prettier": "warn",
+    "@typescript-eslint/strict-boolean-expressions": "off",
     "import-helpers/order-imports": [
       "warn",
       {
