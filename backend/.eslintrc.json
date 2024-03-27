@@ -5,7 +5,7 @@
   },
 
   "extends": [
-    "standard-with-typescript",
+    "love",
     "prettier"
   ],
 
@@ -16,8 +16,7 @@
 
   "parserOptions": {
     "ecmaVersion": "latest",
-    "sourceType": "module",
-    "project": ["./tsconfig.json"]
+    "sourceType": "module"
   },
 
   "rules": {
