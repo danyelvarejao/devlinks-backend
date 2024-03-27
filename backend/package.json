@@ -1,16 +1,16 @@
 {
   "name": "devlinks-backend",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/server.js",
   "license": "MIT",
   "author": "Danyel Varejão",
   "engines": {
     "node": "20"
   },
   "scripts": {
-    "dev": "tsx watch ./src/index.ts",
-    "start": "node ./dist/index.js",
-    "build": "tsup ./src/index.ts"
+    "dev": "tsx watch ./src/server.ts",
+    "start": "node ./dist/server.js",
+    "build": "tsup ./src/server.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.30",
