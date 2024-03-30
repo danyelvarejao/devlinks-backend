@@ -12,10 +12,10 @@
     "skipLibCheck": true,
     "moduleResolution": "node16",
 
+    "baseUrl": ".",
     "outDir": "./dist",
-    "rootDir": "./src",
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
 }
