@@ -1,24 +1,12 @@
-version: '3.9'
+version: '3'
 
 services:
-  mysql:
-    container_name: devlinks_database
-    image: mysql:latest
+  postgresql:
+    container_name: devlinks_postgres
+    image: bitnami/postgresql
     ports:
-      - 3306:3306
+      - 5432:5432
     environment:
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - mysql_data:/var/lib/mysql
-
-  phpmyadmin:
-    container_name: devlinks_phpmyadmin
-    image: phpmyadmin:latest
-    restart: always
-    ports:
-      - 8080:80
-    environment:
-      PMA_HOST: mysql
-
-volumes:
-  mysql_data:
+      POSTGRESQL_USERNAME: docker
+      POSTGRESQL_PASSWORD: docker
+      POSTGRESQL_DATABASE: devlinks

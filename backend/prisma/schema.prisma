@@ -3,29 +3,23 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Account {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id         String   @id @default(uuid())
+  email      String   @unique
+  password   String
+  first_name String?
+  last_name  String?
+  image      String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   links Link[]
 
   @@map("accounts")
-}
-
-model Profile {
-  id        String  @id @default(uuid())
-  firstName String? @map("firt_name")
-  lastName  String? @map("last_name")
-  image     String?
-
-  @@map("profiles")
 }
 
 model Link {
@@ -33,8 +27,8 @@ model Link {
   platform Platform
   link     String
 
-  accountId String  @map("account_id")
-  account   Account @relation(fields: [accountId], references: [id])
+  account_id String
+  account    Account @relation(fields: [account_id], references: [id])
 
   @@map("links")
 }
