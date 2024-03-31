@@ -1,16 +1,22 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 
 import { BCryptHashProvider } from '@/providers/implementations/bcrypt-hash-provider'
 import { InMemoryUsersRepository } from '@/repositories/in-memory'
 import { CreateUserUseCase } from '@/usecases'
 import { UserAlreadyExistsError } from '@/usecases/errors'
 
-describe('CreateUserUseCase', () => {
-  it('should create a new user successfully', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const hashProvider = new BCryptHashProvider()
-    const sut = new CreateUserUseCase(usersRepository, hashProvider)
+let usersRepository: InMemoryUsersRepository
+let hashProvider: BCryptHashProvider
+let sut: CreateUserUseCase
 
+describe('CreateUserUseCase', () => {
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository()
+    hashProvider = new BCryptHashProvider()
+    sut = new CreateUserUseCase(usersRepository, hashProvider)
+  })
+
+  it('should create a new user successfully', async () => {
     const { user } = await sut.execute({
       email: 'any-email@example.com',
       password: '123456'
@@ -20,10 +26,6 @@ describe('CreateUserUseCase', () => {
   })
 
   it('should return a hashed password when creating user', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const hashProvider = new BCryptHashProvider()
-    const sut = new CreateUserUseCase(usersRepository, hashProvider)
-
     const password = '123456'
 
     const { user } = await sut.execute({
@@ -37,10 +39,6 @@ describe('CreateUserUseCase', () => {
   })
 
   it('should throw UserAlreadyExistsError when user with same email already exists', async () => {
-    const usersRepository = new InMemoryUsersRepository()
-    const hashProvider = new BCryptHashProvider()
-    const sut = new CreateUserUseCase(usersRepository, hashProvider)
-
     const email = 'any-email@example.com'
 
     await sut.execute({
