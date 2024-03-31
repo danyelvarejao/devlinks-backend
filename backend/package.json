@@ -13,6 +13,7 @@
     "build": "tsup ./src/server.ts"
   },
   "devDependencies": {
+    "@types/bcrypt": "5.0.2",
     "@types/node": "20.12.2",
     "@typescript-eslint/eslint-plugin": "6.4.0",
     "@typescript-eslint/parser": "6.4.0",
@@ -32,6 +33,7 @@
   },
   "dependencies": {
     "@prisma/client": "5.11.0",
+    "bcrypt": "5.1.1",
     "dotenv": "16.4.5",
     "fastify": "4.26.2",
     "zod": "3.22.4"

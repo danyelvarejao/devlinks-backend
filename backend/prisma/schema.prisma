@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
+model User {
   id         String   @id @default(uuid())
   email      String   @unique
   password   String
@@ -19,7 +19,7 @@ model Account {
 
   links Link[]
 
-  @@map("accounts")
+  @@map("users")
 }
 
 model Link {
@@ -27,8 +27,8 @@ model Link {
   platform Platform
   link     String
 
-  account_id String
-  account    Account @relation(fields: [account_id], references: [id])
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id])
 
   @@map("links")
 }
