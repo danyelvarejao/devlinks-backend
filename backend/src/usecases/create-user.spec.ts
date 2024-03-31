@@ -9,9 +9,9 @@ describe('CreateUserUseCase', () => {
   it('should create a new user successfully', async () => {
     const usersRepository = new InMemoryUsersRepository()
     const hashProvider = new BCryptHashProvider()
-    const createUserUseCase = new CreateUserUseCase(usersRepository, hashProvider)
+    const sut = new CreateUserUseCase(usersRepository, hashProvider)
 
-    const { user } = await createUserUseCase.execute({
+    const { user } = await sut.execute({
       email: 'any-email@example.com',
       password: '123456'
     })
@@ -22,11 +22,11 @@ describe('CreateUserUseCase', () => {
   it('should return a hashed password when creating user', async () => {
     const usersRepository = new InMemoryUsersRepository()
     const hashProvider = new BCryptHashProvider()
-    const createUserUseCase = new CreateUserUseCase(usersRepository, hashProvider)
+    const sut = new CreateUserUseCase(usersRepository, hashProvider)
 
     const password = '123456'
 
-    const { user } = await createUserUseCase.execute({
+    const { user } = await sut.execute({
       email: 'any-email@example.com',
       password
     })
@@ -39,17 +39,17 @@ describe('CreateUserUseCase', () => {
   it('should throw UserAlreadyExistsError when user with same email already exists', async () => {
     const usersRepository = new InMemoryUsersRepository()
     const hashProvider = new BCryptHashProvider()
-    const createUserUseCase = new CreateUserUseCase(usersRepository, hashProvider)
+    const sut = new CreateUserUseCase(usersRepository, hashProvider)
 
     const email = 'any-email@example.com'
 
-    await createUserUseCase.execute({
+    await sut.execute({
       email,
       password: '123456'
     })
 
     await expect(async () => {
-      await createUserUseCase.execute({
+      await sut.execute({
         email,
         password: '123456'
       })
