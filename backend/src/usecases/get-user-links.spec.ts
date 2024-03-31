@@ -25,9 +25,9 @@ describe('GetUserLinksUseCase', () => {
       password: hashedPassword
     })
 
-    linksRepository.save({ link: 'any-github-link', platform: 'GITHUB', user_id: user.id })
-    linksRepository.save({ link: 'any-devto-link', platform: 'DEVTO', user_id: user.id })
-    linksRepository.save({ link: 'any-codepen-link', platform: 'CODEPEN', user_id: user.id })
+    await linksRepository.save({ link: 'any-github-link', platform: 'GITHUB', user_id: user.id })
+    await linksRepository.save({ link: 'any-devto-link', platform: 'DEVTO', user_id: user.id })
+    await linksRepository.save({ link: 'any-codepen-link', platform: 'CODEPEN', user_id: user.id })
 
     const { links } = await sut.execute({
       userId: user.id
