@@ -1,6 +1,7 @@
 import { type HashProvider } from '@/providers'
 import { type UsersRepository } from '@/repositories'
 import { UserAlreadyExistsError } from '@/usecases/errors'
+import { type User } from '@prisma/client'
 
 interface CreateUserUseCaseRequest {
   email: string
@@ -8,13 +9,7 @@ interface CreateUserUseCaseRequest {
 }
 
 interface CreateUserUseCaseResponse {
-  id?: string
-  email: string
-  firstName: string | null
-  lastName: string | null
-  image: string | null
-  createdAt: Date
-  updatedAt: Date
+  user: User
 }
 
 class CreateUserUseCase {
@@ -37,13 +32,7 @@ class CreateUserUseCase {
     })
 
     return {
-      id: user.id,
-      email: user.email,
-      firstName: user.first_name,
-      lastName: user.last_name,
-      image: user.image,
-      createdAt: user.created_at,
-      updatedAt: user.updated_at
+      user
     }
   }
 }

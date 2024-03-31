@@ -20,12 +20,9 @@ const createUser = async (request: FastifyRequest, reply: FastifyReply): Promise
     const hashProvider = new BCryptHashProvider()
     const createUserUseCase = new CreateUserUseCase(usersRepository, hashProvider)
 
-    const output = await createUserUseCase.execute({
-      email,
-      password
-    })
+    await createUserUseCase.execute({ email, password })
 
-    return reply.status(HttpStatusCode.CREATED).send(output)
+    return reply.status(HttpStatusCode.CREATED).send()
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
       return reply.status(HttpStatusCode.CONFLICT).send({ message: error.message })
