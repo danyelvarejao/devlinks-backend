@@ -18,13 +18,19 @@ class LoginUseCase {
     private readonly hashProvider: HashProvider
   ) {}
 
-  async execute({ email, password }: LoginUseCaseRequest): Promise<LoginUseCaseResponse> {
+  async execute({
+    email,
+    password
+  }: LoginUseCaseRequest): Promise<LoginUseCaseResponse> {
     const user = await this.usersRepository.findByEmail(email)
     if (!user) {
       throw new InvalidCredentialsError()
     }
 
-    const isCorrectPassword = await this.hashProvider.comparePassword(password, user.password)
+    const isCorrectPassword = await this.hashProvider.comparePassword(
+      password,
+      user.password
+    )
     if (!isCorrectPassword) {
       throw new InvalidCredentialsError()
     }

@@ -33,7 +33,10 @@ describe('CreateUserUseCase', () => {
       password
     })
 
-    const isPasswordCorrectlyHashed = await hashProvider.comparePassword(password, user.password)
+    const isPasswordCorrectlyHashed = await hashProvider.comparePassword(
+      password,
+      user.password
+    )
 
     expect(isPasswordCorrectlyHashed).toBe(true)
   })

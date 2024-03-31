@@ -1,7 +1,10 @@
 import { it, describe, beforeEach, expect } from 'vitest'
 
 import { BCryptHashProvider } from '@/providers/implementations/bcrypt-hash-provider'
-import { InMemoryLinksRepository, InMemoryUsersRepository } from '@/repositories/in-memory'
+import {
+  InMemoryLinksRepository,
+  InMemoryUsersRepository
+} from '@/repositories/in-memory'
 import { GetUserLinksUseCase } from '@/usecases/get-user-links'
 
 let linksRepository: InMemoryLinksRepository
@@ -25,9 +28,21 @@ describe('GetUserLinksUseCase', () => {
       password: hashedPassword
     })
 
-    await linksRepository.save({ link: 'any-github-link', platform: 'GITHUB', user_id: user.id })
-    await linksRepository.save({ link: 'any-devto-link', platform: 'DEVTO', user_id: user.id })
-    await linksRepository.save({ link: 'any-codepen-link', platform: 'CODEPEN', user_id: user.id })
+    await linksRepository.save({
+      link: 'any-github-link',
+      platform: 'GITHUB',
+      user_id: user.id
+    })
+    await linksRepository.save({
+      link: 'any-devto-link',
+      platform: 'DEVTO',
+      user_id: user.id
+    })
+    await linksRepository.save({
+      link: 'any-codepen-link',
+      platform: 'CODEPEN',
+      user_id: user.id
+    })
 
     const { links } = await sut.execute({
       userId: user.id

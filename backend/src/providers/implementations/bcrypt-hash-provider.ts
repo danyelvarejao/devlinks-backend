@@ -7,7 +7,10 @@ class BCryptHashProvider implements HashProvider {
     return await hash(password, 6)
   }
 
-  async comparePassword(password: string, hashedPassword: string): Promise<boolean> {
+  async comparePassword(
+    password: string,
+    hashedPassword: string
+  ): Promise<boolean> {
     return await compare(password, hashedPassword)
   }
 }

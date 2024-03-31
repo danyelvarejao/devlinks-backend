@@ -20,7 +20,10 @@ describe('BCryptHashProvider', () => {
 
     const hashedPassword = await bcryptHashProvider.encryptPassword(password)
 
-    const isMatch = await bcryptHashProvider.comparePassword(password, hashedPassword)
+    const isMatch = await bcryptHashProvider.comparePassword(
+      password,
+      hashedPassword
+    )
 
     expect(isMatch).toBe(true)
   })

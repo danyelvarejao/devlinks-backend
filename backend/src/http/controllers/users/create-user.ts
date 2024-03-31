@@ -10,7 +10,10 @@ const createUserBodySchema = z.object({
   password: z.string().min(6).max(32)
 })
 
-const createUser = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+const createUser = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
   const { email, password } = createUserBodySchema.parse(request.body)
 
   try {
@@ -21,7 +24,9 @@ const createUser = async (request: FastifyRequest, reply: FastifyReply): Promise
     return reply.status(HttpStatusCode.CREATED).send()
   } catch (error) {
     if (error instanceof UserAlreadyExistsError) {
-      return reply.status(HttpStatusCode.CONFLICT).send({ message: error.message })
+      return reply
+        .status(HttpStatusCode.CONFLICT)
+        .send({ message: error.message })
     }
 
     throw error

@@ -10,7 +10,10 @@ const loginBodySchema = z.object({
   password: z.string().min(6).max(32)
 })
 
-const login = async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+const login = async (
+  request: FastifyRequest,
+  reply: FastifyReply
+): Promise<void> => {
   const { email, password } = loginBodySchema.parse(request.body)
 
   try {
@@ -32,7 +35,9 @@ const login = async (request: FastifyRequest, reply: FastifyReply): Promise<void
     })
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
-      return reply.status(HttpStatusCode.BAD_REQUEST).send({ message: error.message })
+      return reply
+        .status(HttpStatusCode.BAD_REQUEST)
+        .send({ message: error.message })
     }
 
     throw error

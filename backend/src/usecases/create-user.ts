@@ -18,7 +18,10 @@ class CreateUserUseCase {
     private readonly hashProvider: HashProvider
   ) {}
 
-  async execute({ email, password }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
+  async execute({
+    email,
+    password
+  }: CreateUserUseCaseRequest): Promise<CreateUserUseCaseResponse> {
     const userWithSameEmail = await this.usersRepository.findByEmail(email)
     if (userWithSameEmail) {
       throw new UserAlreadyExistsError()

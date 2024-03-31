@@ -26,7 +26,9 @@ app.setErrorHandler((error, _, reply) => {
     console.error(error)
   }
 
-  return reply.status(HttpStatusCode.INTERNAL_SERVER_ERROR).send({ message: 'Internal server error.' })
+  return reply
+    .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
+    .send({ message: 'Internal server error.' })
 })
 
 export { app }
