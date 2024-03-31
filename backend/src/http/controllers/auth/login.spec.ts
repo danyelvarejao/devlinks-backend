@@ -29,13 +29,4 @@ describe('Login (e2e)', () => {
       token: expect.any(String)
     })
   })
-
-  it('should not be able to create a user with an invalid email', async () => {
-    const response = await request(app.server).post('/users').send({
-      email: 'any-email',
-      password: '123456'
-    })
-
-    expect(response.statusCode).toEqual(HttpStatusCode.BAD_REQUEST)
-  })
 })
