@@ -16,9 +16,20 @@ const login = async (request: FastifyRequest, reply: FastifyReply): Promise<void
   try {
     const loginUseCase = makeLoginUseCase()
 
-    await loginUseCase.execute({ email, password })
+    const { user } = await loginUseCase.execute({ email, password })
 
-    return reply.status(HttpStatusCode.OK).send()
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: user.id
+        }
+      }
+    )
+
+    return reply.status(HttpStatusCode.OK).send({
+      token
+    })
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(HttpStatusCode.BAD_REQUEST).send({ message: error.message })

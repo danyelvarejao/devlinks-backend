@@ -4,8 +4,13 @@ import { ZodError } from 'zod'
 import { env } from '@/env'
 import { appRoutes } from '@/http/routes'
 import { HttpStatusCode } from '@/http/utils'
+import fastifyJwt from '@fastify/jwt'
 
 const app = fastify()
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET
+})
 
 app.register(appRoutes)
 
