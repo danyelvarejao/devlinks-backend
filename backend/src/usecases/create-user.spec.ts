@@ -18,7 +18,7 @@ describe('CreateUserUseCase', () => {
 
   it('should create a new user successfully', async () => {
     const { user } = await sut.execute({
-      email: 'any-email@example.com',
+      email: 'test@test.com',
       password: '123456'
     })
 
@@ -29,7 +29,7 @@ describe('CreateUserUseCase', () => {
     const password = '123456'
 
     const { user } = await sut.execute({
-      email: 'any-email@example.com',
+      email: 'test@test.com',
       password
     })
 
@@ -42,7 +42,7 @@ describe('CreateUserUseCase', () => {
   })
 
   it('should throw UserAlreadyExistsError when user with same email already exists', async () => {
-    const email = 'any-email@example.com'
+    const email = 'test@test.com'
 
     await sut.execute({
       email,

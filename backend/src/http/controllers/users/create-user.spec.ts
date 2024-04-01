@@ -15,7 +15,7 @@ describe('Create User (e2e)', () => {
 
   it('should be able to create user', async () => {
     const response = await request(app.server).post('/users').send({
-      email: 'any-email@email.com',
+      email: 'test@test.com',
       password: '123456'
     })
 

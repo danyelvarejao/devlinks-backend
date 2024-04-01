@@ -15,12 +15,12 @@ describe('Login (e2e)', () => {
 
   it('should be able to login', async () => {
     await request(app.server).post('/users').send({
-      email: 'any-email@email.com',
+      email: 'test@test.com',
       password: '123456'
     })
 
     const response = await request(app.server).post('/login').send({
-      email: 'any-email@email.com',
+      email: 'test@test.com',
       password: '123456'
     })
 

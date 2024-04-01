@@ -20,12 +20,12 @@ describe('LoginUseCase', () => {
     const hashedPassword = await hashProvider.encryptPassword('123456')
 
     await usersRepository.save({
-      email: 'any-email@example.com',
+      email: 'test@test.com',
       password: hashedPassword
     })
 
     const { user } = await sut.execute({
-      email: 'any-email@example.com',
+      email: 'test@test.com',
       password: '123456'
     })
 
@@ -35,7 +35,7 @@ describe('LoginUseCase', () => {
   it('should not be able to login with wrong email', async () => {
     await expect(async () => {
       await sut.execute({
-        email: 'any-email@example.com',
+        email: 'test@test.com',
         password: '123456'
       })
     }).rejects.toBeInstanceOf(InvalidCredentialsError)
@@ -45,13 +45,13 @@ describe('LoginUseCase', () => {
     const hashedPassword = await hashProvider.encryptPassword('123456')
 
     await usersRepository.save({
-      email: 'any-email@example.com',
+      email: 'test@test.com',
       password: hashedPassword
     })
 
     await expect(async () => {
       await sut.execute({
-        email: 'any-email@example.com',
+        email: 'test@test.com',
         password: 'wrong-password'
       })
     }).rejects.toBeInstanceOf(InvalidCredentialsError)
