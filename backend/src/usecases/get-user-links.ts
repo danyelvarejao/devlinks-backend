@@ -1,5 +1,6 @@
-import { type LinksRepository } from '@/repositories'
 import { type Link } from '@prisma/client'
+
+import { type LinksRepository } from '@/repositories'
 
 interface GetUserLinksUseCaseRequest {
   userId: string

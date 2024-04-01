@@ -1,5 +1,6 @@
-import { type LinksRepository } from '@/repositories'
 import { type Prisma, type Link } from '@prisma/client'
+
+import { type LinksRepository } from '@/repositories'
 
 class InMemoryLinksRepository implements LinksRepository {
   public links: Link[] = []

@@ -1,6 +1,7 @@
+import { type Prisma, type Link } from '@prisma/client'
+
 import { prisma } from '@/lib/prisma'
 import { type LinksRepository } from '@/repositories'
-import { type Prisma, type Link } from '@prisma/client'
 
 class PrismaLinksRepository implements LinksRepository {
   async findManyByUserId(userId: string): Promise<Link[]> {

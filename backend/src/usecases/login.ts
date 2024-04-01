@@ -1,7 +1,8 @@
+import { type User } from '@prisma/client'
+
 import { type HashProvider } from '@/providers'
 import { type UsersRepository } from '@/repositories'
 import { InvalidCredentialsError } from '@/usecases/errors'
-import { type User } from '@prisma/client'
 
 interface LoginUseCaseRequest {
   email: string

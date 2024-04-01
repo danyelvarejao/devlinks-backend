@@ -1,5 +1,6 @@
-import { type UsersRepository } from '@/repositories'
 import { type User, type Prisma } from '@prisma/client'
+
+import { type UsersRepository } from '@/repositories'
 
 class InMemoryUsersRepository implements UsersRepository {
   public users: User[] = []
