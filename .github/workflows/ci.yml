@@ -2,10 +2,6 @@ name: Run Unit Tests
 
 on: [push]
 
-defaults:
-  run:
-    working-directory: ./backend
-
 jobs:
   run-unit-tests:
     name: Run Unit Tests
@@ -19,7 +15,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      
+
       - name: Install Dependencies
         run: yarn
 
