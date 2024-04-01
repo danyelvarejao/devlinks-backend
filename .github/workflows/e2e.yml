@@ -13,7 +13,6 @@ jobs:
     
     services:
       postgresql:
-        container_name: devlinks_postgres
         image: bitnami/postgresql
         ports:
           - 5432:5432
