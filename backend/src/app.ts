@@ -1,18 +1,22 @@
+import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
 
 import { env } from '@/env'
-import { appRoutes } from '@/http/routes'
+import { authRoutes, usersRoutes } from '@/http/controllers/routes'
 import { HttpStatusCode } from '@/http/utils'
-import fastifyJwt from '@fastify/jwt'
 
 const app = fastify()
 
 app.register(fastifyJwt, {
-  secret: env.JWT_SECRET
+  secret: env.JWT_SECRET,
+  sign: {
+    expiresIn: '1d'
+  }
 })
 
-app.register(appRoutes)
+app.register(authRoutes)
+app.register(usersRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
