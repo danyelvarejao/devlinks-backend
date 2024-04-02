@@ -7,7 +7,7 @@ import {
   InMemoryUsersRepository
 } from '@/repositories/in-memory'
 import { CustomizeUserLinksUseCase } from '@/usecases'
-import { MaxLinksExceededError } from '@/usecases/errors'
+import { InvalidLinkURL, MaxLinksExceededError } from '@/usecases/errors'
 
 let linksRepository: InMemoryLinksRepository
 let usersRepository: InMemoryUsersRepository
@@ -31,11 +31,11 @@ describe('CustomizeUserLinksUseCase', () => {
     })
 
     const links: Prisma.LinkCreateWithoutUserInput[] = [
-      { link: 'any-github-link', platform: 'GITHUB', order: 1 },
-      { link: 'any-codepen-link', platform: 'CODEPEN', order: 3 },
-      { link: 'any-codewars-link', platform: 'CODEWARS', order: 2 },
-      { link: 'any-devto-link', platform: 'DEVTO', order: 5 },
-      { link: 'any-facebook-link', platform: 'FACEBOOK', order: 4 }
+      { link: 'https://github.com/github', platform: 'GITHUB', order: 1 },
+      { link: 'https://codepen.io/codepen', platform: 'CODEPEN', order: 3 },
+      { link: 'https://www.codewars.com', platform: 'CODEWARS', order: 2 },
+      { link: 'https://dev.to/devto', platform: 'DEVTO', order: 5 },
+      { link: 'https://www.facebook.com', platform: 'FACEBOOK', order: 4 }
     ]
 
     await sut.execute({
@@ -56,13 +56,13 @@ describe('CustomizeUserLinksUseCase', () => {
     })
 
     const links: Prisma.LinkCreateWithoutUserInput[] = [
-      { link: 'any-github-link', platform: 'GITHUB', order: 1 },
-      { link: 'any-codepen-link', platform: 'CODEPEN', order: 3 },
-      { link: 'any-codewars-link', platform: 'CODEWARS', order: 2 },
-      { link: 'any-devto-link', platform: 'DEVTO', order: 5 },
-      { link: 'any-facebook-link', platform: 'FACEBOOK', order: 4 },
-      { link: 'more-link', platform: 'GITLAB', order: 6 },
-      { link: 'more-link', platform: 'TWITCH', order: 7 }
+      { link: 'https://github.com/github', platform: 'GITHUB', order: 1 },
+      { link: 'https://codepen.io/codepen', platform: 'CODEPEN', order: 3 },
+      { link: 'https://www.codewars.com', platform: 'CODEWARS', order: 2 },
+      { link: 'https://dev.to/devto', platform: 'DEVTO', order: 5 },
+      { link: 'https://www.facebook.com', platform: 'FACEBOOK', order: 4 },
+      { link: 'https://gitlab.com', platform: 'GITLAB', order: 6 },
+      { link: 'https://www.twitch.tv', platform: 'TWITCH', order: 7 }
     ]
 
     await expect(async () => {
@@ -71,5 +71,27 @@ describe('CustomizeUserLinksUseCase', () => {
         links
       })
     }).rejects.toBeInstanceOf(MaxLinksExceededError)
+  })
+
+  it('should not be able to customize a link with an invalid url', async () => {
+    const hashedPassword = await hashProvider.encryptPassword('123456')
+
+    const user = await usersRepository.save({
+      email: 'any-email',
+      password: hashedPassword
+    })
+
+    const links: Prisma.LinkCreateWithoutUserInput[] = [
+      { link: 'invalid-link', platform: 'GITHUB', order: 1 },
+      { link: 'invalid-link', platform: 'CODEPEN', order: 3 },
+      { link: 'invalid-link', platform: 'CODEWARS', order: 2 }
+    ]
+
+    await expect(async () => {
+      await sut.execute({
+        userId: user.id,
+        links
+      })
+    }).rejects.toBeInstanceOf(InvalidLinkURL)
   })
 })

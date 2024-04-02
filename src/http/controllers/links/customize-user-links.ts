@@ -2,7 +2,7 @@ import { type FastifyReply, type FastifyRequest } from 'fastify'
 import z from 'zod'
 
 import { HttpStatusCode } from '@/http/utils'
-import { MaxLinksExceededError } from '@/usecases/errors'
+import { InvalidLinkURL, MaxLinksExceededError } from '@/usecases/errors'
 import { makeCustomizeUserLinksUseCase } from '@/usecases/factories'
 
 const customizeUserLinksBodySchema = z.object({
@@ -44,7 +44,10 @@ const customizeUserLinks = async (
       links
     })
   } catch (error) {
-    if (error instanceof MaxLinksExceededError) {
+    if (
+      error instanceof MaxLinksExceededError ||
+      error instanceof InvalidLinkURL
+    ) {
       return reply.status(HttpStatusCode.BAD_REQUEST).send({
         message: error.message
       })

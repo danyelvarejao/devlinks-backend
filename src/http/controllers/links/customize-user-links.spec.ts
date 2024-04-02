@@ -19,23 +19,11 @@ describe('Customize User Links (e2e)', () => {
     const { token } = await createAndLoginUser(app)
 
     const links: Prisma.LinkCreateWithoutUserInput[] = [
-      { link: 'https://github.com/any-github', platform: 'GITHUB', order: 1 },
-      {
-        link: 'https://codepen.com/any-codepen',
-        platform: 'CODEPEN',
-        order: 3
-      },
-      {
-        link: 'https://codewars.com/any-codepen',
-        platform: 'CODEWARS',
-        order: 2
-      },
-      { link: 'https://devto.com/any-devto', platform: 'DEVTO', order: 5 },
-      {
-        link: 'https://facebook.com/any-facebook',
-        platform: 'FACEBOOK',
-        order: 4
-      }
+      { link: 'https://github.com/github', platform: 'GITHUB', order: 1 },
+      { link: 'https://codepen.io/codepen', platform: 'CODEPEN', order: 3 },
+      { link: 'https://www.codewars.com', platform: 'CODEWARS', order: 2 },
+      { link: 'https://dev.to/devto', platform: 'DEVTO', order: 5 },
+      { link: 'https://www.facebook.com', platform: 'FACEBOOK', order: 4 }
     ]
 
     const response = await request(app.server)
