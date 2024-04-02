@@ -14,12 +14,26 @@ class PrismaLinksRepository implements LinksRepository {
     return links
   }
 
-  async save(data: Prisma.LinkUncheckedCreateInput): Promise<Link> {
-    const link = await prisma.link.create({
-      data
+  async deleteAllByUserId(userId: string): Promise<void> {
+    await prisma.link.deleteMany({
+      where: {
+        user_id: userId
+      }
     })
+  }
 
-    return link
+  async saveMany(
+    userId: string,
+    links: Prisma.LinkCreateWithoutUserInput[]
+  ): Promise<void> {
+    const linksWithUserId = links.map(link => ({
+      ...link,
+      user_id: userId
+    }))
+
+    await prisma.link.createMany({
+      data: linksWithUserId
+    })
   }
 }
 

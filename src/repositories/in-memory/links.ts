@@ -11,17 +11,21 @@ class InMemoryLinksRepository implements LinksRepository {
     return links
   }
 
-  async save(data: Prisma.LinkUncheckedCreateInput): Promise<Link> {
-    const link: Link = {
-      id: data.id ?? crypto.randomUUID(),
-      link: data.link,
-      platform: data.platform,
-      user_id: data.user_id
-    }
+  async deleteAllByUserId(userId: string): Promise<void> {
+    this.links = this.links.filter(link => link.user_id !== userId)
+  }
 
-    this.links.push(link)
+  async saveMany(
+    userId: string,
+    links: Prisma.LinkCreateWithoutUserInput[]
+  ): Promise<void> {
+    const linksWithUserId = links.map(link => ({
+      ...link,
+      id: link.id ?? crypto.randomUUID(),
+      user_id: userId
+    }))
 
-    return link
+    this.links.push(...linksWithUserId)
   }
 }
 

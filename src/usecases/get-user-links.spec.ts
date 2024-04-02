@@ -28,27 +28,19 @@ describe('GetUserLinksUseCase', () => {
       password: hashedPassword
     })
 
-    await linksRepository.save({
-      link: 'any-github-link',
-      platform: 'GITHUB',
-      user_id: user.id
-    })
-    await linksRepository.save({
-      link: 'any-devto-link',
-      platform: 'DEVTO',
-      user_id: user.id
-    })
-    await linksRepository.save({
-      link: 'any-codepen-link',
-      platform: 'CODEPEN',
-      user_id: user.id
-    })
+    await linksRepository.saveMany(user.id, [
+      { link: 'any-github-link', platform: 'GITHUB', order: 1 },
+      { link: 'any-codepen-link', platform: 'CODEPEN', order: 3 },
+      { link: 'any-codewars-link', platform: 'CODEWARS', order: 2 },
+      { link: 'any-devto-link', platform: 'DEVTO', order: 5 },
+      { link: 'any-facebook-link', platform: 'FACEBOOK', order: 4 }
+    ])
 
     const { links } = await sut.execute({
       userId: user.id
     })
 
     expect(links[0].id).toEqual(expect.any(String))
-    expect(links).toHaveLength(3)
+    expect(links).toHaveLength(5)
   })
 })

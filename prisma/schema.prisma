@@ -26,6 +26,7 @@ model Link {
   id       String   @id @default(uuid())
   platform Platform
   link     String
+  order    Int
 
   user_id String
   user    User   @relation(fields: [user_id], references: [id])
