@@ -1,3 +1,4 @@
+import cors from '@fastify/cors'
 import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
@@ -7,6 +8,8 @@ import { authRoutes, linksRoutes, usersRoutes } from '@/http/controllers/routes'
 import { HttpStatusCode } from '@/http/utils'
 
 const app = fastify()
+
+app.register(cors)
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
