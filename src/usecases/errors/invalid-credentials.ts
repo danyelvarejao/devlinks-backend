@@ -1,6 +1,6 @@
 class InvalidCredentialsError extends Error {
   constructor() {
-    super('Invalid credentials.')
+    super('The email or password is incorrect.')
   }
 }
 
